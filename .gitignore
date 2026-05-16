@@ -136,3 +136,9 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# push to my repos
+**/slides/
+**/teaching_note/
+course_01/Notes_about_this_course.md
+/README.md
