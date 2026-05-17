@@ -21,9 +21,16 @@
 
 
 def binary_search_iter(lst, target):
-    # TODO
-    pass
-
+    low, high = 0, len(lst) - 1 
+    while low <= high:
+        mid = (low + high) // 2
+        if lst[mid] == target:
+            return mid
+        elif lst[mid] < target:
+            low = mid + 1 
+        else:
+            high = mid - 1
+    return -1
 
 # --- Tests for Part 1 ---
 print(binary_search_iter([1, 3, 5, 7, 9, 11, 13], 7))    # Expected: 3
@@ -47,8 +54,18 @@ print(binary_search_iter([1, 3, 5, 7, 9, 11, 13], 13))   # Expected: 6
 
 
 def binary_search_count_steps(lst, target):
-    # TODO: return (index, steps)
-    pass
+    low, high = 0, len(lst)-1
+    steps = 0
+    while low <= high:
+        steps += 1
+        mid = (low + high) // 2
+        if lst[mid] == target:
+            return (mid, steps)
+        if target < lst[mid]:
+            high = mid -1
+        else:
+            low = mid + 1
+    return -1
 
 
 # Already done for you — naive linear search with a step counter.
@@ -64,8 +81,8 @@ def naive_search_count_steps(lst, target):
 # --- Tests for Part 2 ---
 arr = list(range(1_000_000))                # [0, 1, 2, ..., 999_999]
 
-# idx, steps = binary_search_count_steps(arr, 198_308)             ← UNCOMMENT after implementing binary_search_count_steps
-# print(idx, "found in", steps, "steps  (binary search)")          ← UNCOMMENT after implementing binary_search_count_steps
+idx, steps = binary_search_count_steps(arr, 198_308)            
+print(idx, "found in", steps, "steps  (binary search)")         
 # # Expected: 198308 found in around 20 steps
 
 idx, steps = naive_search_count_steps(arr, 198_308)
@@ -85,6 +102,21 @@ print(idx, "found in", steps, "steps  (naive search)")
 #     A True/False wrapper around your binary_search_iter.
 #     Example: contains([1, 3, 5, 7], 3) -> True
 #              contains([1, 3, 5, 7], 4) -> False
+def contains(lst, target):
+    low, high = 0, len(lst)-1
+    while low <= high:
+        mid = (low + high) // 2
+        if lst[mid] == target:
+            return True
+        if target < lst[mid]:
+            high = mid - 1
+        else:
+            low = mid + 1
+    return False
+
+print(contains([1, 3, 5, 7], 3))
+print(contains([1, 3, 5, 7], 4))
+
 #
 # B2) Try a BIGGER list.
 #     Build a list of 10_000_000 items and call binary_search_count_steps
