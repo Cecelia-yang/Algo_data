@@ -60,12 +60,12 @@ def binary_search_count_steps(lst, target):
         steps += 1
         mid = (low + high) // 2
         if lst[mid] == target:
-            return (mid, steps)
+            return mid, steps
         if target < lst[mid]:
             high = mid -1
         else:
             low = mid + 1
-    return -1
+    return -1, steps
 
 
 # Already done for you — naive linear search with a step counter.
@@ -103,16 +103,7 @@ print(idx, "found in", steps, "steps  (naive search)")
 #     Example: contains([1, 3, 5, 7], 3) -> True
 #              contains([1, 3, 5, 7], 4) -> False
 def contains(lst, target):
-    low, high = 0, len(lst)-1
-    while low <= high:
-        mid = (low + high) // 2
-        if lst[mid] == target:
-            return True
-        if target < lst[mid]:
-            high = mid - 1
-        else:
-            low = mid + 1
-    return False
+    return binary_search_iter(lst, target)  != -1
 
 print(contains([1, 3, 5, 7], 3))
 print(contains([1, 3, 5, 7], 4))
@@ -122,9 +113,19 @@ print(contains([1, 3, 5, 7], 4))
 #     Build a list of 10_000_000 items and call binary_search_count_steps
 #     on it. How many steps now?
 #     (Spoiler: only ~24 — just 4 more steps for 10× more data.)
-#
+
+big = list(range(10_000_000))
+idx, steps = binary_search_count_steps(big, 7_654_321)
+print(idx, "found in", steps, "steps  (10M items)")
+
 # B3) Watch binary stay flat as n grows.
 #     For each size in [1_000, 10_000, 100_000, 1_000_000]:
 #       - call binary_search_count_steps on list(range(size))
 #       - print the size and the step count.
 #     You should see something like 10, 14, 17, 20.
+
+for size in [100, 1000, 10000, 100000]:
+    lst = list(range(size))
+    target = size - 1 
+    idx, steps = binary_search_count_steps(lst, target)
+    print(idx, "found in", steps, "steps  (10M items)")
