@@ -140,5 +140,7 @@ cython_debug/
 # push to my repos
 **/slides/
 **/teaching_note/
+**/exercice/*.ipynb
+
 course_01/Notes_about_this_course.md
 /README.md
