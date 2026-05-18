@@ -149,7 +149,7 @@ Starting from:
 
 Each level on the way back up does one re-assignment. Most of them are no-ops (the same child as before), but the one at the bottom plants the new node. The "return on the way up" is what lets the planting reach the parent.
 
-### FAQ — why "return and re-attach" instead of looking ahead?
+###  But why "return and re-attach" the current node ?
 
 A natural question after seeing the worked trace: *why don't we just check if `node.left is None` and create the new node right there, instead of going down into the empty spot and returning it back up?* This "look-ahead" idea is smart — and it does work for most cases. But the standard `node.left = bst_insert(node.left, value)` pattern is preferred for three concrete reasons.
 
@@ -192,7 +192,7 @@ The re-attach version factors the creation into one spot — the base case — a
 
 #### 3. It is the same pattern self-balancing trees need
 
-In Class 08 we mention AVL and Red-Black trees — BSTs that automatically rebalance after every insert by performing a *rotation* on the affected subtree. After a rotation, the **root of the subtree changes** — the parent that called the function suddenly needs to point at a different node.
+In this class and the next, we mention AVL and Red-Black trees — BSTs that automatically rebalance after every insert by performing a *rotation* on the affected subtree. After a rotation, the **root of the subtree changes** — the parent that called the function suddenly needs to point at a different node.
 
 The re-attach pattern handles this for free. The recursive call already returns "the new root of this subtree, whatever it now is", and the parent already re-attaches it with `node.left = ...`. Whether the call returned the same root or a rotated one, the parent line does not change.
 
