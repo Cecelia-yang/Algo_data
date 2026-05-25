@@ -46,6 +46,25 @@ Recursion structure:
 - **Base case**: no children → return 0
 - **Inductive case**: for each child, add `1 + count_total_replies(child)`
 
+**Guided skeleton — `count_total_replies`**
+
+```python
+def count_total_replies(comment):
+
+    # ① A running total for everything under THIS comment.
+    total = ???
+
+    # ② Each child counts as 1, PLUS everything under that child.
+    #    (this line is the whole trick)
+    for ??? in comment.???:
+        total += 1 + ????
+
+    return ???
+```
+
+🔍 **The recursive line, explained**
+- `1` is the child itself; `count_total_replies(child)` is all of *its* replies. Add both for every child and you've counted the entire sub-tree. A leaf has an empty `children` list → the loop never runs → `total` stays `0`. No `if` needed.
+
 ---
 
 ## Step 8 — `deepest_thread(comment)`
@@ -69,6 +88,23 @@ max(len(word) for word in ["hi", "hello", "hey"])   # → 5
 ```
 
 Same idiom: `max(f(x) for x in collection)`.
+
+**Guided skeleton — `deepest_thread`**
+
+```python
+def deepest_thread(comment):
+
+    # ① Base case: a leaf has no children → depth 0.
+    if not comment.???:
+        return ???
+
+    # ② Otherwise: 1 level (these children) + the deepest child below.
+    #    Reuse the max(... for ...) idiom from just above.
+    return 1 + max(??? for child in comment.???)
+```
+
+🔍 **The recursive line, explained**
+- The `???` inside `max(...)` is the recursive call on each child; `max(...)` keeps the deepest; `1 +` adds the step from `comment` down to it. The `(... for ...)` is a *generator* — `max` reads the values one by one, no list built.
 
 ---
 
@@ -96,6 +132,39 @@ Algorithm:
 - If not at this level → recurse into each child.
 
 Hint: have the function return a boolean (`True` if deleted, `False` if not) so you can stop searching once found.
+
+**Guided skeleton — `delete_comment`** (the hardest of the three — two phases)
+
+```python
+def delete_comment(parent, target_id):
+
+    # ── Phase 1: is the target a DIRECT child of parent? ──
+    # enumerate gives the position i AND the child, so you can pop(i).
+    for i, child in enumerate(parent.children):
+        if child.??? == ???:
+            parent.children.pop(i)
+            return ???
+
+    # ── Phase 2: not here → look INSIDE each child (recurse). ──
+    for child in parent.children:
+        if delete_comment(child, target_id):
+            return ???
+
+    # ── Searched the whole sub-tree, never found it. ──
+    return ???
+```
+
+🔍 **Why two phases**
+- **Phase 1** scans `parent`'s *own* children, because you can only remove a node from the list that holds it. `enumerate` gives the index so `pop(i)` removes exactly that one — its whole sub-thread goes with it.
+- **Phase 2**: if it wasn't a direct child, the target is deeper → recurse. The inner call returns `True` if it deleted something below; pass that result straight up. The very last `return` means *"not in this sub-tree"* (so: `False`).
+
+🪜 **Trace** — `delete_comment(Alice, 5)`  (#5 = Eve, a child of David):
+
+```
+Alice → Phase 1: kids [Bob, David, Grace], no #5 → Phase 2: recurse
+   David → Phase 1: kids [Eve#5, Frank] → match! pop → True
+   → True bubbles up to Alice → True
+```
 
 ---
 
