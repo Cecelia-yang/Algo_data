@@ -6,7 +6,7 @@
 
 ## What Makes Deletion Hard?
 
-Insertion in a BST always lands on the same kind of spot: a `None`. You walk down, you find an empty slot, you plant the new node. Done. Every insertion is fundamentally the same operation.
+Insertion in a BST always lands on <mark style="background: #FF5582A6;">the same kind of spot</mark>: a `None`. You walk down, you find an empty slot, you plant the new node. Done. Every insertion is fundamentally the same operation.
 
 Deletion is not like that. When you remove a node, you have to **fill the hole** — and the way you fill it depends on how the node was connected.
 

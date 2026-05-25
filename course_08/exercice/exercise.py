@@ -15,19 +15,36 @@
 from bst import Node, build_bst, inorder_values
 
 def bst_delete(node, value): #ONLY CASES 1 AND 2 !
-    pass    # TODO
+    if node is None:
+        return None
+    if value < node.value:
+        node.left = bst_delete(node.left, value)
+    elif value > node.value:
+        node.right = bst_delete(node.right, value)
+    else:
+        if node.left is None and node.right is None:
+            return None
+        if node.left is None:return node.right
+        if node.right is None:return node.left
+    return node
 
 
 print("=== Exo 1 ===")
-# t = build_bst([5, 3, 8, 1, 4])
-# t = bst_delete(t, 1)                     # case 1: leaf
-# print(inorder_values(t))                 # [3, 4, 5, 8]
-# t = build_bst([5, 3, 8, 1, 10])
-# t = bst_delete(t, 8)                     # case 2: 8 has only right (10)
-# print(inorder_values(t))                 # [1, 3, 5, 10]
-# t = build_bst([5, 3, 8, 1])
-# t = bst_delete(t, 3)                     # case 2: 3 has only left (1)
-# print(inorder_values(t))                 # [1, 5, 8]
+t = build_bst([5, 3, 8, 1, 4])
+t = bst_delete(t, 1)                     
+print(inorder_values(t))                 
+# case 1: leaf
+# [3, 4, 5, 8]
+t = build_bst([5, 3, 8, 1, 10])
+t = bst_delete(t, 8)                     
+# case 2: 8 has only right (10)
+# [1, 3, 5, 10]
+print(inorder_values(t))                
+t = build_bst([5, 3, 8, 1])
+t = bst_delete(t, 3)                     
+# case 2: 3 has only left (1)
+# [1, 5, 8]
+print(inorder_values(t))                 
 
 
 
