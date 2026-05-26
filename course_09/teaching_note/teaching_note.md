@@ -14,7 +14,7 @@ Walk into a hospital emergency room. Three patients are sitting in the waiting a
 
 Whose name gets called first? Not the one who arrived first. The one with the **highest priority** — the heart attack. The cut and the broken arm wait.
 
-That is a **priority queue**. A queue where you do not get out in the order you got in; you get out by priority. The most important element is always next.
+That is a **priority queue**. A queue where you do not get out in the order you got in; <mark style="background: #FF5582A6;">you get out by priority.</mark> The most important element is always next.
 
 Real systems use priority queues everywhere:
 
@@ -60,7 +60,7 @@ Pick the variant that matches the question. "I want the cheapest first" → min-
 
 ### What "complete" means
 
-Every level is full, except possibly the last — and on the last level, nodes are packed to the LEFT. No gaps in the middle.
+<mark style="background: #FF5582A6;">Every level is full, except possibly the last — and on the last level, nodes are packed to the LEFT. No gaps in the middle.</mark>
 
 This rule is more than aesthetic. It is what makes the array representation possible.
 
@@ -197,6 +197,17 @@ heapq.heappush(nums, 0)         # push, O(log n)
 smallest = heapq.heappop(nums)  # pop the min, O(log n)
 ```
 
+
+
+> [!NOTE] Push和pop的对比
+> pop主要是拿取最小元素，然后剩下的部分自动更新，重点在“拿取”。但是push更多的时我们添加一个元素，然后连着新加入的元素一起调整成新的最小堆。注意，我们拿取的时候都用的Pop而不是nums [ 0 ],这样【0】只是读取了但是没有拿出来这个最小值，只有Pop是拿出来了这个元素
+
+
+> [!NOTE] 复杂度
+> 首先建立这个结构说因为他的插入和删除都很方便，只有logn的复杂度，而数组的话虽然读取方便（O(1)），但是他的插入和删除是O（n）的复杂度，很不方便。而我们之所以用完全二叉树而不是普通的，是因为这样我们可以很方便的根据索引计算出他的父母和孩子的位置。注意，heap的复杂度不是因为冒泡排序，而是因为树的逻辑结构。注意在真实中，这就是一个数组，而我们的逻辑是一个二叉树。
+
+
+
 Three things to remember:
 
 1. **heapq mutates the list in place.** No copy is returned. If you need the original, pass `nums[:]` or `list(nums)`.
@@ -212,7 +223,7 @@ heapq.nlargest(3, nums)         # 3 largest, in descending order
 heapq.nsmallest(3, nums)        # 3 smallest, in ascending order
 ```
 
-Both run in **O(n log k)**. When `k << n`, this beats `sorted(nums)[:k]` which is O(n log n) — you avoid sorting the values you do not care about.
+Both run in <mark style="background: #FF5582A6;">**O(n log k)**</mark>. <mark style="background: #FF5582A6;">When `k << n`, this beats `sorted(nums)[:k]` which is O(n log n)</mark> — you avoid sorting the values you do not care about.
 
 ---
 
@@ -220,20 +231,20 @@ Both run in **O(n log k)**. When `k << n`, this beats `sorted(nums)[:k]` which i
 
 Both are tree-based, both support insertion. They serve different jobs.
 
-| Operation | Heap | BST |
-|---|---|---|
-| Find min | **O(1)** | O(h) |
-| Find arbitrary value | O(n) | O(h) |
-| Insert | O(log n) | O(h) |
-| Sorted iteration | NO — heap order ≠ sorted | YES — inorder gives sorted |
-| Storage | Array (compact) | Nodes + pointers |
+| Operation            | Heap                     | BST                        |
+| -------------------- | ------------------------ | -------------------------- |
+| Find min             | **O(1)**                 | O(h)                       |
+| Find arbitrary value | O(n)                     | O(h)                       |
+| Insert               | O(log n)                 | O(h)                       |
+| Sorted iteration     | NO — heap order ≠ sorted | YES — inorder gives sorted |
+| Storage              | Array (compact)          | Nodes + pointers           |
 
 The rule of practice:
 
 - "I want the most important element, fast, and I don't care about the rest" → **heap**.
 - "I want to search by key, get values in sorted order, do range queries" → **BST**.
 
-Trying to use a heap to find a specific (non-root) value is painful — you walk the whole array. Trying to use a BST for top-K is wasteful — every search is O(log n) instead of O(1) for the min.
+<mark style="background: #FF5582A6;">Trying to use a heap to find a specific (non-root) value is painful — you walk the whole array. Trying to use a BST for top-K is wasteful — every search is O(log n) instead of O(1) for the min.</mark>
 
 ---
 

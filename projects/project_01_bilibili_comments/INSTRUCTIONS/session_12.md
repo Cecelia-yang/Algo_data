@@ -43,6 +43,23 @@ You need all comments in one flat list, so you can rank them.
 
 Same DFS preorder as `display()`, but appending to a list instead of printing.
 
+<<<<<<< HEAD
+=======
+**Your turn — `collect_all_comments`** *(a challenge: no skeleton this time)*
+
+You already wrote this exact shape in `display()`. It's the same recursion, with ONE change: instead of `print(...)`, you `append(...)` to `result`.
+
+```python
+def collect_all_comments(comment, result):
+    # 1. record THIS comment in result
+    # 2. recurse on each child, passing the SAME result down
+    # 3. return result
+    ???
+```
+
+🔍 The only trap: pass the **same** `result` to every recursive call (don't create a new list inside), so all the comments pile into one shared list. Return it at the end so the caller gets the full flat list.
+
+>>>>>>> efdefe52ed78d99b15d2dc97f1107b3890a69377
 ---
 
 ## Step 11 — Top-K with `heapq`
@@ -68,6 +85,20 @@ The `key=` argument tells `heapq` which property to compare. You pass any functi
 
 For practice with the heap data structure (session 9), you can also do it manually: maintain a min-heap of size K, push when not full, replace `heap[0]` when a new item beats it.
 
+<<<<<<< HEAD
+=======
+**Guided skeleton — `top_k_comments`**
+
+```python
+def top_k_comments(comments, k):
+    # adapt the heapq.nlargest example above — rank by likes.
+    return heapq.nlargest(???, ???, key=???)
+```
+
+🔍 **The `key=` part**
+- `key=` needs a tiny one-line function — a `lambda` — that takes a comment and gives back its `likes` (that's what `heapq` compares). The other two `???` you fill from the generic example just above.
+
+>>>>>>> efdefe52ed78d99b15d2dc97f1107b3890a69377
 ---
 
 ## Step 12 — Pretty leaderboard
@@ -93,6 +124,25 @@ print(f"{'Hello':<10}|")   # → "Hello     |"   (left-align in 10 chars)
 print(f"{42:>5}|")         # → "   42|"        (right-align in 5 chars)
 ```
 
+<<<<<<< HEAD
+=======
+**Guided skeleton — `print_leaderboard`**
+
+```python
+def print_leaderboard(top_comments):
+    # a title + a line of "=" — borders are up to you
+    ???
+
+    # rank starts at 1 (not 0). Build the row so the columns line up (see 🔍).
+    for rank, c in enumerate(top_comments, start=1):
+        print(f' #{rank}  {???}  {???} ❤️  "{???}"')
+```
+
+🔍 **The aligned row, explained**
+- `enumerate(top_comments, start=1)` gives `rank` = 1, 2, 3… next to each comment.
+- For the three `???`: the author left-aligned in 12 columns (`:<12`), the likes right-aligned in 3 (`:>3`), then the text. Match the target look from the top of this step.
+
+>>>>>>> efdefe52ed78d99b15d2dc97f1107b3890a69377
 ---
 
 ## ✅ M3 complete
@@ -132,12 +182,19 @@ ROUND OF 8         SEMIS          FINAL         CHAMPION
 #6 Su Yan   ─┘
 ```
 
+<<<<<<< HEAD
 The bracket is a **binary tree**: each match has 2 inputs (the players) and 1 output (the winner). To compute the champion, you must resolve children before parents → **postorder** (session 6).
+=======
+The bracket is a **binary tree**: each match has 2 inputs (the players) and 1 output (the winner).
+
+> **No skeletons for the bonus.** You already have every tool from M1–M3. Figure out the rest yourself — that's what makes it worth +10%.
+>>>>>>> efdefe52ed78d99b15d2dc97f1107b3890a69377
 
 ---
 
 ## Step 13 — Build the bracket
 
+<<<<<<< HEAD
 `Match` class skeleton:
 
 ```python
@@ -184,6 +241,15 @@ import random
 if random.random() < 0.8:
     ...
 ```
+=======
+Write a `Match` class (a node holding the winning comment + its two sub-matches) and `build_bracket(top_8)` that builds the bracket tree (8 leaves → 4 → 2 → 1) and returns the root.
+
+---
+
+## Step 14 — Simulate matches
+
+Write `play_tournament(match)` that resolves the whole bracket and returns the champion. Higher likes wins (add randomness for upsets if you like).
+>>>>>>> efdefe52ed78d99b15d2dc97f1107b3890a69377
 
 ---
 
@@ -212,7 +278,11 @@ FINAL:
 🏆 CHAMPION: Alice — "Great video!" (98 ❤️)
 ```
 
+<<<<<<< HEAD
 Hint: BFS the tree level by level (session 6) and group matches by round.
+=======
+Match that output. How you walk the tree and group matches by round is up to you.
+>>>>>>> efdefe52ed78d99b15d2dc97f1107b3890a69377
 
 ---
 

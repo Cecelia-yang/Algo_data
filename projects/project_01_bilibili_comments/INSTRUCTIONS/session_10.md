@@ -48,10 +48,20 @@ You load it and use it like any other Python object:
 
 ```python
 import json
+<<<<<<< HEAD
 
 with open("school.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
+=======
+DATA_PATH = os.path.join(HERE, "data", "comments.json")
+
+
+with open(DATA_PATH, "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+# You can print whatever you want to make sure you load it right
+>>>>>>> efdefe52ed78d99b15d2dc97f1107b3890a69377
 print(data["school"])
 print(len(data["students"]))
 
@@ -68,6 +78,11 @@ Liu Wei — ['Math', 'Physics']
 Zhang Mei — ['English', 'History', 'Art']
 ```
 
+<<<<<<< HEAD
+=======
+Try to print the value inside `data/comments.json` !!
+
+>>>>>>> efdefe52ed78d99b15d2dc97f1107b3890a69377
 Now open `data/comments.json`. Like `school.json` above, it is one object with the list of comments under a key — read it with `data["comments"]`. The difference: each comment is **recursive** — it carries its own `replies`, a list of more comments.
 
 ---
@@ -161,6 +176,40 @@ Write `build_tree(comment_dict)`:
 - **Base case**: a comment with `replies: []` → just create the Comment and return it
 - **Inductive case**: a comment with replies → create the Comment, then for each reply dict, recursively call `build_tree` and `add_reply` the result
 
+<<<<<<< HEAD
+=======
+**Guided skeleton — `build_tree`** 
+
+```python
+def build_tree(comment_dict):
+
+    # ① Build THIS comment. 4 fields live in comment_dict:
+    #    id, author, text, likes
+    node = Comment(???)
+
+    # ② A reply is a comment too, and it may have its own replies.
+    #    For each reply dict: build its WHOLE sub-tree, then attach it.
+    for reply_dict in ???? :
+        node.add_reply(build_tree(reply_dict))
+
+    # ③ Hand the finished node back to whoever called us.
+    return node
+```
+
+🔍 **The two GIVEN lines, explained**
+- `build_tree(reply_dict)` calls `build_tree` **again** on a smaller dict and returns the root of that reply's sub-tree. `add_reply` hangs it under `node`. → one line = *"build the sub-thread AND attach it"*.
+- `return node`: every call must hand its node back — otherwise the line above would attach `None`. The `return` is what makes the recursion work.
+
+🌳 **What ONE call does** (dict #1 = Alice, replies #2 and #4):
+
+```
+build_tree(Alice #1)
+  ├─ build_tree(#2) → Bob's sub-tree   ┐ add_reply
+  └─ build_tree(#4) → David's sub-tree ┘ add_reply
+  └─ return Alice (now with 2 children)
+```
+
+>>>>>>> efdefe52ed78d99b15d2dc97f1107b3890a69377
 Then in `main.py`: load the JSON, take the list `data["comments"]`, call `build_tree` on each comment dict in it, and store the list of roots.
 
 > ### Why `roots` is a *list*, not one tree
@@ -217,6 +266,30 @@ f-strings are a way to embed expressions inside string literals, using curly bra
 print(f"Hello, my name is {name} and I am {age} years old. I have {likes} likes on my comment, but i would like to have {likes * 10} likes!")
 ```
 
+<<<<<<< HEAD
+=======
+**Guided skeleton — `display`**
+
+```python
+def display(comment, depth=0):
+
+    # ① Build the indent: 2 spaces per level.
+    indent = ???    
+
+    # ② Print THIS comment, indent in front, with right value inside 
+	# to be exactly what is waited.
+    print(f"???{???}???{???}???")
+
+    # ③ Recurse on each child, ONE level deeper.
+    for ??? in ??? :
+		display(child, ???) #← you fill: display(child, ...) one level deeper
+```
+
+🔍 **Why it works**
+- `display(child, ????)` is **preorder**: we print the parent first (②), THEN dive into its children. Adding `1` to `depth` is what shifts each level 2 more spaces to the right.
+- A leaf has no children → the `for` loop runs zero times → it just prints its own line. No `if` needed (free base case).
+
+>>>>>>> efdefe52ed78d99b15d2dc97f1107b3890a69377
 ---
 
 ## Step 6 — Find by ID *(extra)*
@@ -228,6 +301,32 @@ print(f"Hello, my name is {name} and I am {age} years old. I have {likes} likes 
 
 Same preorder pattern as `display`, with an early return.
 
+<<<<<<< HEAD
+=======
+**Guided skeleton — `find_by_id`**
+
+```python
+def find_by_id(comment, target_id):
+
+    # ① Is it THIS comment? If yes, hand it back.
+    if comment.??? == ???:
+        return comment
+
+    # ② Not here → search each child. The tricky part: the moment a child
+    #    finds it, you must STOP and bubble that result back up.
+    for child in comment.children:
+        found = ???
+        if ????
+			return ????
+
+    # ③ Searched everything under here, nothing matched.
+    return ???
+```
+
+🔍 **Why the `found` check**
+- `find_by_id(child, ...)` searches one whole sub-tree and returns the comment *or* `None`. The `if ??? return found` is what makes the search stop at the first hit — without it you'd give up after the first child and never look at the others.
+
+>>>>>>> efdefe52ed78d99b15d2dc97f1107b3890a69377
 ---
 
 ## Debug pattern
