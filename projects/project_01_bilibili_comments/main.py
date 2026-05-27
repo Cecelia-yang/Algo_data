@@ -49,8 +49,8 @@ for root in roots:
 # ══════════════════════════════════════════════════════════════════════
 # M2 — explore the tree   (Session 11)
 # ══════════════════════════════════════════════════════════════════════
-# print("\n----- step 7: count_total_replies -----")
-# print(count_total_replies(roots[0]), "replies under comment #1")
+print("\n----- step 7: count_total_replies -----")
+print(count_total_replies(roots[0]), "replies under comment #1")
 #
 # print("\n----- step 8: deepest_thread -----")
 # print(deepest_thread(roots[0]), "levels deep under comment #1")

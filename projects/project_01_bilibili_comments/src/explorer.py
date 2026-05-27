@@ -13,7 +13,11 @@
 # Inductive: for each child, add 1 + count_total_replies(child).
 
 def count_total_replies(comment):
-    pass    # TODO
+    total = 0
+    for child in comment.children:
+        total += 1 + count_total_replies(child)
+        
+    return total
 
 
 # ─── Step 8 — deepest level under `comment` ───────────────────────────
