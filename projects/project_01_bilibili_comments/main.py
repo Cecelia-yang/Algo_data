@@ -26,16 +26,24 @@ DATA_PATH = os.path.join(HERE, "data", "comments.json")
 # ══════════════════════════════════════════════════════════════════════
 # M1 — build the tree and display it   (Session 10)
 # ══════════════════════════════════════════════════════════════════════
-print("----- step 1: load data -----")
+print("----- step 1: load data -----")    
 # TODO: open DATA_PATH, json.load it, keep the list of top-level dicts.
 
 # load the JSON file into a Python dict "data"
-
+with open(DATA_PATH, "r", encoding = "utf-8") as f:
+    data = json.load(f)
+    
+raw_comments = data["comments"]
+print(f"loaded {len(raw_comments)} top-level comments")
 # raw_comments = data["comments"]
 # print(f"Loaded {len(raw_comments)} top-level comments")
 
 print("\n----- steps 4-5: build + display the trees -----")
 # TODO: build one tree per top-level dict, then display each root.
+
+root = Comment(1, "Alice", "Great video!", 98)
+root.add_reply(Comment(2, "Bob", "Agree!", 12))
+
 # roots = [build_tree(c) for c in raw_comments]
 # for root in roots:
 #     display(root)
