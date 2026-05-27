@@ -39,12 +39,12 @@ print(f"loaded {len(raw_comments)} top-level comments")
 
 print("\n----- steps 4-5: build + display the trees -----")
 # TODO: build one tree per top-level dict, then display each root.
-
-
 # roots = [build_tree(c) for c in raw_comments]
 # for root in roots:
 #     display(root)
-
+roots = [build_tree(c) for c in raw_comments]
+for root in roots:
+    display(root)
 
 # ══════════════════════════════════════════════════════════════════════
 # M2 — explore the tree   (Session 11)
