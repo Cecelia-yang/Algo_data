@@ -39,13 +39,19 @@ def build_tree(comment_dict):
 # Target line: "[#1] Alice (98 ❤️): Great video!"
 
 def display(comment, depth=0):
-    indent = "  "* depth
-    print(f"{indent}[{comment.id}] {comment.author} ({comment.like} ❤️): {comment.text}") 
+    indent = "  " * depth
+    print(f"{indent}[{comment.id}] {comment.author} ({comment.likes} ❤️  ): {comment.text}") 
     for child in comment.children:
-        display(child, depth + 1)    
-
+        display(child, depth + 1)  
+        
 
 # ─── Step 6 (extra) — find a comment by id, or return None ────────────
 
 def find_by_id(comment, target_id):
-    pass    # TODO
+    if comment.id == target_id:
+        return comment
+    for child in comment.children:
+        found = find_by_id(child, target_id)
+        if found is not None:
+            return found
+    return None
