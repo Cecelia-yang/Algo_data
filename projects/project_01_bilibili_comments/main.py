@@ -15,6 +15,7 @@ import json
 
 from src.comment import build_tree, display
 from src.explorer import count_total_replies, deepest_thread, delete_comment
+from src.leaderboard import collect_all_comments, top_k_comments, print_leaderboard
 
 # Path to the dataset — works no matter which folder you launch python from.
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -25,21 +26,12 @@ DATA_PATH = os.path.join(HERE, "data", "comments.json")
 # M1 — build the tree and display it   (Session 10)
 # ══════════════════════════════════════════════════════════════════════
 print("----- step 1: load data -----")
-# TODO: open DATA_PATH, json.load it, keep the list of top-level dicts.
-
-# load the JSON file into a Python dict "data"
 with open(DATA_PATH, "r", encoding="utf-8") as f:
     data = json.load(f)
 raw_comments = data["comments"]
 print(f"loaded {len(raw_comments)} top-level comments")
-# raw_comments = data["comments"]
-# print(f"Loaded {len(raw_comments)} top-level comments")
 
 print("\n----- steps 4-5: build + display the trees -----")
-# TODO: build one tree per top-level dict, then display each root.
-# roots = [build_tree(c) for c in raw_comments]
-# for root in roots:
-#     display(root)
 roots = [build_tree(c) for c in raw_comments]
 for root in roots:
     display(root)
@@ -61,12 +53,12 @@ display(roots[0])
 # ══════════════════════════════════════════════════════════════════════
 # M3 — leaderboard   (Session 12)
 # ══════════════════════════════════════════════════════════════════════
-# print("\n----- steps 10-12: leaderboard -----")
-# all_comments = []
-# for root in roots:
-#     collect_all_comments(root, all_comments)
-# top5 = top_k_comments(all_comments, 5)
-# print_leaderboard(top5)
+print("\n----- steps 10-12: leaderboard -----")
+all_comments = []
+for root in roots:
+    collect_all_comments(root, all_comments)
+top5 = top_k_comments(all_comments, 5)
+print_leaderboard(top5)
 
 
 # ══════════════════════════════════════════════════════════════════════
