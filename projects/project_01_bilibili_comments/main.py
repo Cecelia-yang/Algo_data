@@ -14,7 +14,7 @@ import os
 import json
 
 from src.comment import build_tree, display
-from src.explorer import count_total_replies, deepest_thread
+from src.explorer import count_total_replies, deepest_thread, delete_comment
 
 # Path to the dataset — works no matter which folder you launch python from.
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -49,13 +49,13 @@ for root in roots:
 # ══════════════════════════════════════════════════════════════════════
 print("\n----- step 7: count_total_replies -----")
 print(count_total_replies(roots[0]), "replies under comment #1")
-#
+
 print("\n----- step 8: deepest_thread -----")
 print(deepest_thread(roots[0]), "levels deep under comment #1")
-#
-# print("\n----- step 9: delete_comment (#5) -----")
-# delete_comment(roots[0], 5)
-# display(roots[0])
+
+print("\n----- step 9: delete_comment (#5) -----")
+delete_comment(roots[0], 5)
+display(roots[0])
 
 
 # ══════════════════════════════════════════════════════════════════════

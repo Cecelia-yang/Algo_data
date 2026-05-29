@@ -42,4 +42,13 @@ def deepest_thread(comment):
 
 
 def delete_comment(parent, target_id):
-    pass  # TODO
+    for i, child in enumerate(parent.children):
+        if child.id == target_id:
+            parent.children.pop(i)
+            return True
+
+    for child in parent.children:
+        if delete_comment(child, target_id):
+            return True
+
+    return False
