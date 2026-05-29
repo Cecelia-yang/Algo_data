@@ -12,11 +12,12 @@
 # Base case: no children → 0.
 # Inductive: for each child, add 1 + count_total_replies(child).
 
+
 def count_total_replies(comment):
     total = 0
     for child in comment.children:
         total += 1 + count_total_replies(child)
-        
+
     return total
 
 
@@ -26,8 +27,11 @@ def count_total_replies(comment):
 # Base case: no children → 0.
 # Inductive: 1 + max(deepest_thread(c) for c in children).
 
+
 def deepest_thread(comment):
-    pass    # TODO
+    if not comment.children:
+        return 0
+    return 1 + max(deepest_thread(child) for child in comment.children)
 
 
 # ─── Step 9 — delete the comment with `target_id` (whole sub-thread) ──
@@ -36,5 +40,6 @@ def deepest_thread(comment):
 # Otherwise recurse into each child.
 # Return True if something was deleted, False otherwise.
 
+
 def delete_comment(parent, target_id):
-    pass    # TODO
+    pass  # TODO

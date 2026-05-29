@@ -13,10 +13,8 @@ Run it from THIS folder:   python3 main.py
 import os
 import json
 
-from src.comment import Comment, build_tree, display, find_by_id
-from src.explorer import count_total_replies, deepest_thread, delete_comment
-from src.leaderboard import collect_all_comments, top_k_comments, print_leaderboard
-from src.tournament import Match, build_bracket, play_tournament, print_bracket
+from src.comment import build_tree, display
+from src.explorer import count_total_replies, deepest_thread
 
 # Path to the dataset — works no matter which folder you launch python from.
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -26,11 +24,11 @@ DATA_PATH = os.path.join(HERE, "data", "comments.json")
 # ══════════════════════════════════════════════════════════════════════
 # M1 — build the tree and display it   (Session 10)
 # ══════════════════════════════════════════════════════════════════════
-print("----- step 1: load data -----")    
+print("----- step 1: load data -----")
 # TODO: open DATA_PATH, json.load it, keep the list of top-level dicts.
 
 # load the JSON file into a Python dict "data"
-with open(DATA_PATH, "r", encoding = "utf-8") as f:
+with open(DATA_PATH, "r", encoding="utf-8") as f:
     data = json.load(f)
 raw_comments = data["comments"]
 print(f"loaded {len(raw_comments)} top-level comments")
@@ -52,8 +50,8 @@ for root in roots:
 print("\n----- step 7: count_total_replies -----")
 print(count_total_replies(roots[0]), "replies under comment #1")
 #
-# print("\n----- step 8: deepest_thread -----")
-# print(deepest_thread(roots[0]), "levels deep under comment #1")
+print("\n----- step 8: deepest_thread -----")
+print(deepest_thread(roots[0]), "levels deep under comment #1")
 #
 # print("\n----- step 9: delete_comment (#5) -----")
 # delete_comment(roots[0], 5)
